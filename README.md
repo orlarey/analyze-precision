@@ -1,4 +1,4 @@
-[![example workflow](https://github.com/orlarey/analyze-precision/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/orlarey/analyze-precision/actions/workflows/c-cpp.yml)
+[![C/C++ CI](https://github.com/orlarey/analyze-precision/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/orlarey/analyze-precision/actions/workflows/c-cpp.yml)
 
 # analyze-precision
 Analyze fix-point precision for unary functions
