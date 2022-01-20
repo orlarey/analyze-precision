@@ -185,6 +185,15 @@ int main()
         analyze(msg, fun, i, lsb, true);
     }
 
+    {
+        auto        fun = [](I i) { return sin(i); };
+        std::string msg = "sin(i)";
+        int         lsb = -18;
+        I           i(0, M_PI * 2.0);
+        auto        H = histogram(fun, i, lsb);
+        csvfile("sin-18-histogram.csv", H);
+    }
+
     return 0;
 }
 
