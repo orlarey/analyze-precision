@@ -88,6 +88,24 @@ int precision(const std::map<int, int> &H, double c)
 }
 
 /**
+ * @brief mapping between input and output precision
+ *
+ * @param fun
+ * @param i input interval
+ * @param l -1..l précisions
+ * @param cov
+ * @return std::map<int, int> input -> output precision
+ */
+std::map<int, int> rmapping(const std::function<I(I)> &fun, I i, int l, double cov)
+{
+    std::map<int, int> M;
+    for (int k = -1; k >= l; k--) {
+        M[k] = precision(histogram(fun, i, k), cov);
+    }
+    return M;
+}
+
+/**
  * @brief analyze : fixpoint tester
  *
  * @param fun

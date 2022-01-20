@@ -192,6 +192,19 @@ int main()
         I           i(0, M_PI * 2.0);
         auto        H = histogram(fun, i, lsb);
         csvfile("sin-18-histogram.csv", H);
+        auto M = rmapping(fun, i, lsb, 0.999);
+        csvfile("sin-18-reverse.csv", M);
+    }
+
+    {
+        auto        fun = [](I i) { return atan(i); };
+        std::string msg = "atan(i)";
+        int         lsb = -18;
+        I           i(-10, 10);
+        auto        H = histogram(fun, i, lsb);
+        csvfile("atan-18-histogram.csv", H);
+        auto M = rmapping(fun, i, lsb, 0.999);
+        csvfile("atan-18-reverse.csv", M);
     }
 
     return 0;

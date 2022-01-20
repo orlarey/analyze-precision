@@ -16,6 +16,17 @@
 std::map<int, int> histogram(const std::function<I(I)> &fun, I i, int l);
 
 /**
+ * @brief mapping between input and output precision
+ *
+ * @param fun
+ * @param i input interval
+ * @param l -1..l précisions
+ * @param cov
+ * @return std::map<int, int> input -> output precision
+ */
+std::map<int, int> rmapping(const std::function<I(I)> &fun, I i, int l, double cov);
+
+/**
  * @brief Print the histogram as a csv file
  *
  * @param filename
