@@ -13,7 +13,7 @@
  * @param l argument precision (lsb)
  * @return std::map<int, int> precision histogram
  */
-std::map<int, int> histogram(const std::function<I(I)> &fun, I i, int l);
+std::map<int, int> histogram(const std::function<I(I)> &fun, const I &i, int l);
 
 /**
  * @brief mapping between input and output precision
@@ -24,7 +24,7 @@ std::map<int, int> histogram(const std::function<I(I)> &fun, I i, int l);
  * @param cov
  * @return std::map<int, int> input -> output precision
  */
-std::map<int, int> rmapping(const std::function<I(I)> &fun, I i, int l, double cov);
+std::map<int, int> rmapping(const std::function<I(I)> &fun, const I &i, int l, double cov);
 
 /**
  * @brief Print the histogram as a csv file
@@ -51,4 +51,4 @@ int cases(const std::map<int, int> &H);
  * @param l argument precision (lsb)
  * @param hist true, print histogram
  */
-void analyze(const std::string &msg, const std::function<I(I)> &fun, I i, int l, bool hist);
+void analyze(const std::string &msg, const std::function<I(I)> &fun, const I &i, int l, bool hist);

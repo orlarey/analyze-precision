@@ -14,11 +14,10 @@
  * @param l LSB precision
  * @return std::map<int, int>
  */
-std::map<int, int> histogram(const std::function<I(I)> &fun, I i, int l)
+std::map<int, int> histogram(const std::function<I(I)> &fun, const I &i, int l)
 {
     I      j = truncInterval(i, l);
     double d = pow(2, l);
-    I      k = fun(j);
 
     std::map<int, int> H;
 
@@ -96,7 +95,7 @@ int precision(const std::map<int, int> &H, double c)
  * @param cov
  * @return std::map<int, int> input -> output precision
  */
-std::map<int, int> rmapping(const std::function<I(I)> &fun, I i, int l, double cov)
+std::map<int, int> rmapping(const std::function<I(I)> &fun, const I &i, int l, double cov)
 {
     std::map<int, int> M;
     for (int k = -1; k >= l; k--) {
@@ -113,11 +112,11 @@ std::map<int, int> rmapping(const std::function<I(I)> &fun, I i, int l, double c
  * @param l
  * @param hist
  */
-void analyze(const std::string &msg, const std::function<I(I)> &fun, I i, int l, bool hist)
+void analyze(const std::string &msg, const std::function<I(I)> &fun, const I &i, int l, bool hist)
 {
-    I      j     = truncInterval(i, l);
-    double delta = pow(2, l);
-    I      k     = fun(j);
+    I j = truncInterval(i, l);
+    //    double delta = pow(2, l);
+    I k = fun(j);
 
     std::cout << "\nTEST: lambda(i).(" << msg << "); interval: " << i << "; LSB: " << l << "; truncated interval: " << j
               << "; MSB: " << msb(j) << "; resulting interval: " << k << "; MSB: " << msb(k) << std::endl;

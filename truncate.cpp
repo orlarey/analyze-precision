@@ -49,21 +49,14 @@ double truncinf(double x, int l)
  * @param l power of lsb to keep
  * @return truncated number
  */
-double truncsupxxx(double x, int l)
-{
-    double p = pow(2, l);
-    double y = floor(x / p + 1) * p;
-    assert(x <= y);
-    return y;
-}
 double truncsup(double x, int l)
 {
     return truncinf(x, l) + pow(2, l);
 }
 
-I truncInterval(I i, int l)
+I truncInterval(const I& i, int l)
 {
-    return I(truncinf(i.lower(), l), truncsup(i.upper(), l));
+    return {truncinf(i.lower(), l), truncsup(i.upper(), l)};
 }
 
 /**
@@ -90,7 +83,7 @@ int lcb(double x, double y)
  * @param i interval
  * @return int
  */
-int lcb(I i)
+int lcb(const I& i)
 {
     return lcb(i.lower(), i.upper());
 }
@@ -112,7 +105,7 @@ int msb(double x)
  * @param i interval
  * @return int
  */
-int msb(I i)
+int msb(const I& i)
 {
     return std::max(msb(i.lower()), msb(i.upper()));
 }

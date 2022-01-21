@@ -5,7 +5,7 @@ ifeq ($(UNAME_S),Darwin)
     EXT=-mp-13
 endif
 
-ANALYSIS="-*,cert-*,clang-analyzer-*,modernize-*,performance-*,cppcoreguidelines-*,google-*,bugprone-*,misc-*,-google-runtime-references,-cppcoreguidelines-avoid-magic-numbers,-modernize-use-trailing-return-type,-misc-redundant-expression"
+ANALYSIS="-*,cert-*,clang-analyzer-*,modernize-*,performance-*,cppcoreguidelines-*,google-*,bugprone-*,misc-*,-google-runtime-references,-cppcoreguidelines-avoid-magic-numbers,-modernize-use-trailing-return-type,-misc-redundant-expression,-bugprone-easily-swappable-parameters"
 
 SRC=$(wildcard *.cpp)
 HDR=$(wildcard *.hh)
@@ -33,6 +33,10 @@ clean :
 
 analyze :
 	clang-tidy${EXT} --extra-arg="--std=c++17" -checks=${ANALYSIS}  *.cpp  -- -I . -I /opt/local/include -D__USE_ISOC99
+
+check :
+	cppcheck --enable=all --inconclusive --language=c++ --std=c++17 -I . -I /opt/local/include -D__USE_ISOC99 --quiet --suppress=missingIncludeSystem *.ccp *.h --template='{severity}:{file}:{line}:{message}'
+
 
 fix :
 	clang-tidy${EXT} --extra-arg="--std=c++17" -checks=${ANALYSIS}  *.cpp -fix  -- -I . -I /opt/local/include -D__USE_ISOC99
