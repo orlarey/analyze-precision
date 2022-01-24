@@ -37,8 +37,9 @@ std::map<int, int> histogram(const std::function<I(I)> &fun, const I &i, int l)
  * @param filename
  * @param H
  */
-void csvfile(const std::string &filename, const std::map<int, int> &H)
+void csvfile(std::string filename, const std::map<int, int> &H)
 {
+    std::cout << "==>" << filename << std::endl;
     std::ofstream csvfile;
     csvfile.open(filename.c_str());
 

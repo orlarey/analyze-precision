@@ -32,7 +32,7 @@ std::map<int, int> rmapping(const std::function<I(I)> &fun, const I &i, int l, d
  * @param filename
  * @param H
  */
-void csvfile(const std::string &filename, const std::map<int, int> &H);
+void csvfile(std::string filename, const std::map<int, int> &H);
 
 /**
  * @brief Compute the number of cases in histogram H

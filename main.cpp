@@ -15,11 +15,39 @@
 #include <variant>
 #include <vector>
 */
+#include <sstream>
+
 #include "analyze.h"
+#include "functions.h"
+
 //#include "truncate.h"
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc == 1) {
+        listFunctions();
+    } else if (argc != 5) {
+        std::cout << argv[0] << " function lsb lo hi" << std::endl;
+    } else {
+        analyze(argv[1], name2function(argv[1]), I(atof(argv[3]), atof(argv[4])), atoi(argv[2]), false);
+        // compute histogram
+        auto        fun = name2function(argv[1]);
+        std::string msg = argv[1];
+        int         lsb = atoi(argv[2]);
+        I           i(atof(argv[3]), atof(argv[4]));
+
+        auto H = histogram(fun, i, lsb);
+        // and generate csv files
+        std::stringstream fname1;
+        fname1 << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_histogram.csv";
+        csvfile(fname1.str(), H);
+        //
+        std::stringstream fname2;
+        fname2 << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_reverse.csv";
+        auto M = rmapping(fun, i, lsb, 0.999);
+        csvfile(fname2.str(), M);
+    }
+#if 0
     int lsb = -18;
     {
         auto        fun = [](const I& i) { return square(sin(i)); };
@@ -203,6 +231,7 @@ int main()
         auto M = rmapping(fun, i, lsb, 0.999);
         csvfile("atan-18-reverse.csv", M);
     }
+#endif
 
     return 0;
 }
