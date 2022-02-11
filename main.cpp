@@ -18,11 +18,15 @@
 #include <sstream>
 
 #include "analyze.h"
+#include "draw.h"
 #include "functions.h"
+
+#include "pbPlots.h"
+#include "supportLib.h"
 
 //#include "truncate.h"
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if (argc == 1) {
         listFunctions();
@@ -38,15 +42,20 @@ int main(int argc, char* argv[])
 
         auto H = histogram(fun, i, lsb);
         // and generate csv files
-        std::stringstream fname1;
+        std::stringstream fname1, fname1b;
         fname1 << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_histogram.csv";
         csvfile(fname1.str(), H);
+        fname1b << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_histogram.png";
+        plotfile(fname1b.str(), H);
         //
-        std::stringstream fname2;
+        std::stringstream fname2, fname2b;
         fname2 << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_reverse.csv";
+        fname2b << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_reverse.png";
         auto M = rmapping(fun, i, lsb, 0.999);
         csvfile(fname2.str(), M);
+        plotfile(fname2b.str(), M);
     }
+
 #if 0
     int lsb = -18;
     {

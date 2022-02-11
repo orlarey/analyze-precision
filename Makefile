@@ -11,7 +11,7 @@ SRC=$(wildcard *.cpp)
 HDR=$(wildcard *.hh)
 
 a.out : ${SRC} ${HDR} Makefile
-	${CXX} -Wall -Wextra -Wshadow -O2 --std=c++20 -I . -I /opt/local/include -D__USE_ISOC99 ${SRC} -o a.out
+	${CXX} -Wall -Wextra -Wshadow -O2 --std=c++17 -I . -I /opt/local/include -D__USE_ISOC99 ${SRC} -o a.out
 
 
 test: a.out
@@ -35,9 +35,9 @@ analyze :
 	clang-tidy${EXT} --extra-arg="--std=c++17" -checks=${ANALYSIS}  *.cpp  -- -I . -I /opt/local/include -D__USE_ISOC99
 
 check :
-	cppcheck --enable=all --inconclusive --language=c++ --std=c++20 -I . -I /opt/local/include -D__USE_ISOC99 --quiet --suppress=missingIncludeSystem *.ccp *.h --template='{severity}:{file}:{line}:{message}'
+	cppcheck --enable=all --inconclusive --language=c++ --std=c++17 -I . -I /opt/local/include -D__USE_ISOC99 --quiet --suppress=missingIncludeSystem *.ccp *.h --template='{severity}:{file}:{line}:{message}'
 
 
 fix :
-	clang-tidy${EXT} --extra-arg="--std=c++20" -checks=${ANALYSIS}  *.cpp -fix  -- -I . -I /opt/local/include -D__USE_ISOC99
+	clang-tidy${EXT} --extra-arg="--std=c++17" -checks=${ANALYSIS}  *.cpp -fix  -- -I . -I /opt/local/include -D__USE_ISOC99
 
