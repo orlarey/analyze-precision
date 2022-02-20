@@ -35,6 +35,15 @@ std::map<int, int> rmapping(const std::function<I(I)> &fun, const I &i, int l, d
 void csvfile(std::string filename, const std::map<int, int> &H);
 
 /**
+ * @brief Print the histogram as a gnuplot file
+ *
+ * @param filename
+ * @param H
+ */
+void gnuplotfile(std::string filename, std::string function, int lsb, double lo, double hi,
+                 const std::map<int, int> &H);
+
+/**
  * @brief Compute the number of cases in histogram H
  *
  * @param H

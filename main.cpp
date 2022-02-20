@@ -45,15 +45,15 @@ int main(int argc, char *argv[])
         std::stringstream fname1, fname1b;
         fname1 << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_histogram.csv";
         csvfile(fname1.str(), H);
-        fname1b << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_histogram.png";
-        plotfile(fname1b.str(), H);
+        fname1b << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_histogram.dat";
+        gnuplotfile(fname1b.str(), msg, lsb, i.lower(), i.upper(), H);
         //
         std::stringstream fname2, fname2b;
         fname2 << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_reverse.csv";
-        fname2b << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_reverse.png";
+        fname2b << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_reverse.dat";
         auto M = rmapping(fun, i, lsb, 0.999);
         csvfile(fname2.str(), M);
-        plotfile(fname2b.str(), M);
+        gnuplotfile(fname2b.str(), msg, lsb, i.lower(), i.upper(), M);
     }
 
 #if 0

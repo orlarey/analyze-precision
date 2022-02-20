@@ -51,6 +51,60 @@ void csvfile(std::string filename, const std::map<int, int> &H)
 }
 
 /**
+ * @brief Print the histogram as a csv file
+ *
+ * @param filename
+ * @param H
+ */
+void gnuplotfile(std::string filename, std::string function, int lsb, double lo, double hi, const std::map<int, int> &H)
+{
+    int total = 0;
+    for (auto r : H) total += r.second;
+
+    std::cout << "==>" << filename << std::endl;
+    std::ofstream file;
+    file.open(filename.c_str());
+    file << "set title '" << function << " function, input lsb=" << lsb << "; input range [" << lo << ".." << hi << "]'"
+         << std::endl;
+    file << "set ylabel 'Number of results accurately represented'" << std::endl;
+    file << "set xlabel 'Output precision lsb' " << std::endl;
+    file << "set grid" << std::endl;
+
+    // print the number of values precisely described by
+    // each LSB
+    int limit999  = int(total * 0.999);
+    int limit990  = int(total * 0.990);
+    int limit900  = int(total * 0.900);
+    int pos999    = 0;
+    int pos990    = 0;
+    int pos900    = 0;
+    int remaining = total;
+    for (auto r : H) {
+        if (remaining >= limit999) pos999 = r.first;
+        if (remaining >= limit990) pos990 = r.first;
+        if (remaining >= limit900) pos900 = r.first;
+        remaining -= r.second;
+    }
+    file << "set arrow from " << pos999 << ",0 to " << pos999 << "," << total << " nohead linecolor 'red' "
+         << std::endl;
+
+    file << "set arrow from " << pos990 << ",0 to " << pos990 << "," << total << " nohead linecolor 'red' "
+         << std::endl;
+
+    file << "plot '-' with lines" << std::endl;
+    file << "#LSB\tVALUES" << std::endl;
+
+    // print the number of values precisely described by
+    // each LSB
+    remaining = total;
+    for (auto r : H) {
+        file << r.first << "\t" << remaining << "\t" << 100.0 * double(remaining) / double(total) << std::endl;
+        remaining -= r.second;
+    }
+    file.close();
+}
+
+/**
  * @brief Compute the number of cases in histogram H
  *
  * @param H
