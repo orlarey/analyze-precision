@@ -18,13 +18,13 @@
 #include <sstream>
 
 #include "analyze.h"
-#include "draw.h"
+//#include "draw.h"
 #include "functions.h"
 
-#include "pbPlots.h"
-#include "supportLib.h"
+//#include "pbPlots.h"
+//#include "supportLib.h"
 
-//#include "truncate.h"
+#include "print.h"
 
 int main(int argc, char *argv[])
 {
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     } else if (argc != 5) {
         std::cout << argv[0] << " function lsb lo hi" << std::endl;
     } else {
-        analyze(argv[1], name2function(argv[1]), I(atof(argv[3]), atof(argv[4])), atoi(argv[2]), false);
+        // analyze(argv[1], name2function(argv[1]), I(atof(argv[3]), atof(argv[4])), atoi(argv[2]), false);
         // compute histogram
         auto        fun = name2function(argv[1]);
         std::string msg = argv[1];
@@ -41,19 +41,7 @@ int main(int argc, char *argv[])
         I           i(atof(argv[3]), atof(argv[4]));
 
         auto H = histogram(fun, i, lsb);
-        // and generate csv files
-        std::stringstream fname1, fname1b;
-        fname1 << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_histogram.csv";
-        csvfile(fname1.str(), H);
-        fname1b << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_histogram.dat";
-        gnuplotfile(fname1b.str(), msg, lsb, i.lower(), i.upper(), H);
-        //
-        std::stringstream fname2, fname2b;
-        fname2 << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_reverse.csv";
-        fname2b << msg << '_' << lsb << '_' << i.lower() << '-' << i.upper() << "_reverse.dat";
-        auto M = rmapping(fun, i, lsb, 0.999);
-        csvfile(fname2.str(), M);
-        gnuplotfile(fname2b.str(), msg, lsb, i.lower(), i.upper(), M);
+        gnuplotfile(msg, lsb, i.lower(), i.upper(), H);
     }
 
 #if 0
